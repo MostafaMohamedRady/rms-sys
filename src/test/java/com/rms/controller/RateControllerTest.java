@@ -83,7 +83,7 @@ public class RateControllerTest {
         rateResponse.setRateExpirationDate(new Date());
         rateResponse.setRateId(100L);
         rateResponse.setSurchargeDescription("setSurchargeDescription");
-        rateResponse.setSurchargeRate(100L);
+        rateResponse.setSurchargeRate(100);
         return rateResponse;
     }
 }

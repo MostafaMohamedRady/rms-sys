@@ -13,7 +13,7 @@ public class SurchargeApiClientFallback implements SurchargeApiClient{
      */
     public String getSurcharge(){
         SurchargeResponse surchargeResponse = new SurchargeResponse();
-        surchargeResponse.setSurchargeRate(101L);
+        surchargeResponse.setSurchargeRate(101);
         surchargeResponse.setSurchargeDescription("Hystrix fallback response");
         return CommonUtil.convertObjectToJsonString(surchargeResponse);
     }
