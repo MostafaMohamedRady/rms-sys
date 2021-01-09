@@ -16,6 +16,7 @@ public class RateResponse {
     private Date rateEffectiveDate;
     private Date rateExpirationDate;
     private Integer amount;
-    private Long surchargeRate;
+    private Integer surchargeRate;
     private String surchargeDescription;
+    private Integer charges;
 }

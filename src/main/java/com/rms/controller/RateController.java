@@ -38,10 +38,10 @@ public class RateController {
     @ApiResponses({@ApiResponse(code = 200, message = "All the fields of the Rate table and surcharge details."),
             @ApiResponse(code = 404, message = "RateId not found in RMS."),
             @ApiResponse(code = 500, message = "Internal server error. Please contact admin.")})
-    @GetMapping("/search")
-    public ResponseEntity<Object> searchRate() {
+    @GetMapping("/search/{rateId}")
+    public ResponseEntity<Object> searchRate(@NotNull @PathVariable Long rateId) {
         log.info("Search Rate started");
-        RateResponse rateResponse = rateService.searchRate();
+        RateResponse rateResponse = rateService.searchRate(rateId);
         log.info("Search response :- {}", rateResponse);
         return ResponseEntity.ok(rateResponse);
     }

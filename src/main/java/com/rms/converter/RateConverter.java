@@ -19,6 +19,7 @@ public class RateConverter {
         RateResponse rateResponse = new RateResponse();
         BeanUtils.copyProperties(entity, rateResponse);
         BeanUtils.copyProperties(surcharge, rateResponse);
+        rateResponse.setCharges(surcharge.getSurchargeRate()+entity.getAmount());
         return rateResponse;
     }
 }

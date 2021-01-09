@@ -45,7 +45,7 @@ public class RateServiceImplTest {
                 "}";
         Mockito.when(surchargeApiClient.getSurcharge()).thenReturn(result);
         Mockito.when(rateRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(mockRateEntity()));
-        RateResponse rateResponse = service.searchRate();
+        RateResponse rateResponse = service.searchRate(100L);
         Assert.assertNotNull(rateResponse);
         Assert.assertEquals(rateResponse.getSurchargeDescription(), "VAT");
     }
@@ -53,7 +53,7 @@ public class RateServiceImplTest {
     @Test(expected = RateNotFoundException.class)
     public void searchRate_whenApiReturnNull() {
         Mockito.when(surchargeApiClient.getSurcharge()).thenReturn(null);
-        RateResponse rateResponse = service.searchRate();
+        RateResponse rateResponse = service.searchRate(100L);
     }
 
     @Test(expected = RateNotFoundException.class)
@@ -64,7 +64,7 @@ public class RateServiceImplTest {
                 "}";
         Mockito.when(surchargeApiClient.getSurcharge()).thenReturn(result);
         Mockito.when(rateRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
-        RateResponse rateResponse = service.searchRate();
+        RateResponse rateResponse = service.searchRate(100L);
     }
 
     @Test

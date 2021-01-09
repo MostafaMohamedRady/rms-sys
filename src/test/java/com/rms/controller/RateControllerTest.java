@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,16 +31,16 @@ public class RateControllerTest {
 
     @Test
     public void searchRate() {
-        Mockito.when(rateService.searchRate()).thenReturn(mockRateReponse());
-        ResponseEntity<Object> responseEntity = rateController.searchRate();
+        Mockito.when(rateService.searchRate(Mockito.anyLong())).thenReturn(mockRateReponse());
+        ResponseEntity<Object> responseEntity = rateController.searchRate(100L);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
     }
 
     @Test(expected = RateNotFoundException.class)
     public void searchRate_whenException() {
-        Mockito.when(rateService.searchRate()).thenThrow(RateNotFoundException.class);
-        rateController.searchRate();
+        Mockito.when(rateService.searchRate(Mockito.anyLong())).thenThrow(RateNotFoundException.class);
+        rateController.searchRate(100L);
     }
 
     @Test

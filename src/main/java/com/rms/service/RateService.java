@@ -5,7 +5,7 @@ import com.rms.dto.RateResponse;
 
 public interface RateService {
 
-    RateResponse searchRate();
+    RateResponse searchRate(Long rateId);
 
     void addRate(RateRequest rateRequest);
 

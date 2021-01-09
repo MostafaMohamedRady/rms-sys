@@ -33,26 +33,22 @@ public class RateServiceImpl implements RateService {
     private RateConverter rateConverter;
 
     /**
-     * call surcharge api to get rate id
+     * call surcharge api to get rate vat
      * then fetch the rate details from db
-     * return null if no rate found
-     *
+     * throw exception if no rate found
      * @return
+     * @param rateId
      */
     @Override
-    public RateResponse searchRate() {
+    public RateResponse searchRate(Long rateId) {
+        Optional<RateEntity> optional = Optional.ofNullable(rateRepository.findById(rateId).orElseThrow(RateNotFoundException::new));
+        RateEntity entity = optional.get();
+        log.info("Rate Db result :- {}", optional);
+
         String result = surchargeApiClient.getSurcharge();
         log.info("surchargeApiClient response :- {}", result);
         SurchargeResponse surcharge = CommonUtil.convertJsonToObject(result, SurchargeResponse.class);
-        if (!Objects.isNull(surcharge)) {
-            Optional<RateEntity> optional = rateRepository.findById(surcharge.getSurchargeRate());
-            log.info("Rate Db result :- {}", optional);
-            if (optional.isPresent()) {
-                RateEntity entity = optional.get();
-                return rateConverter.mapRate(surcharge, entity);
-            }
-        }
-        throw new RateNotFoundException();
+        return rateConverter.mapRate(surcharge, entity);
     }
 
     /**

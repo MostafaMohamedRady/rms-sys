@@ -6,6 +6,6 @@ import lombok.Data;
 @ApiModel(value = "SurchargeResponse", description = "Response from surcharge api")
 @Data
 public class SurchargeResponse {
-    private Long surchargeRate;
+    private Integer surchargeRate;
     private String surchargeDescription;
 }
